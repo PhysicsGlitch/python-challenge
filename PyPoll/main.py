@@ -1,0 +1,63 @@
+import os
+import csv
+
+election_data_original = os.path.join('Resources', 'election_data.csv')
+
+with open(election_data_original, newline='') as csv_file:
+    election_data = list(csv.reader(csv_file, delimiter=','))
+
+total_votes = 0
+kahn_total = 0
+correy_total = 0
+li_total = 0
+otooley_total = 0
+
+for i in range(1, len(election_data)):
+    for j in range(2, len(election_data[i])):
+        total_votes += 1
+        if election_data[i][2] == "Khan":
+            kahn_total += 1
+        elif election_data[i][2] == "Correy":
+            correy_total += 1
+        elif election_data[i][2] == "Li":
+            li_total += 1
+        elif election_data[i][2] == "O'Tooley":
+            otooley_total += 1
+
+
+candidate_list = []
+candidate_list.append(["Kahn", "{:.3%}".format(kahn_total/total_votes), kahn_total])
+candidate_list.append(["Correy", "{:.3%}".format(correy_total/total_votes), correy_total])
+candidate_list.append(["Li", "{:.3%}".format(li_total/total_votes), li_total])
+candidate_list.append(["O'Tooley", "{:.3%}".format(otooley_total/total_votes), otooley_total])
+
+from operator import itemgetter
+sorted_candidates = sorted(candidate_list, key=itemgetter(2))
+
+analysis = os.path.join("election_results.txt")
+
+print("Election Results")
+print("-------------------------")
+print(f"Total Votes: {total_votes}")
+print("-------------------------")
+print(f"{sorted_candidates[-1][0]}: {sorted_candidates[-1][1]} ({sorted_candidates[-1][2]})")
+print(f"{sorted_candidates[2][0]}: {sorted_candidates[2][1]} ({sorted_candidates[2][2]})")
+print(f"{sorted_candidates[1][0]}: {sorted_candidates[1][1]} ({sorted_candidates[1][2]})")
+print(f"{sorted_candidates[0][0]}: {sorted_candidates[0][1]} ({sorted_candidates[0][2]})")
+print("-------------------------")
+print(f"Winner: {sorted_candidates[-1][0]}")
+print("-------------------------")
+
+with open(analysis, "w") as datafile:
+
+    datafile.write("Election Results\n")
+    datafile.write("-------------------------\n")
+    datafile.write(f"Total Votes: {total_votes}\n")
+    datafile.write("-------------------------\n")
+    datafile.write(f"{sorted_candidates[-1][0]}: {sorted_candidates[-1][1]} ({sorted_candidates[-1][2]})\n")
+    datafile.write(f"{sorted_candidates[2][0]}: {sorted_candidates[2][1]} ({sorted_candidates[2][2]})\n")
+    datafile.write(f"{sorted_candidates[1][0]}: {sorted_candidates[1][1]} ({sorted_candidates[1][2]})\n")
+    datafile.write(f"{sorted_candidates[0][0]}: {sorted_candidates[0][1]} ({sorted_candidates[0][2]})\n")
+    datafile.write("-------------------------\n")
+    datafile.write(f"Winner: {sorted_candidates[-1][0]}\n")
+    datafile.write("-------------------------\n")

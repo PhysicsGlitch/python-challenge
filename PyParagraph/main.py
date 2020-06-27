@@ -11,9 +11,9 @@ raw_list = list(text.readlines())
 
 # The three steps below clean the data from the raw_list converted using the vanilla text reader.
 # The first step gets rid of the new line marker in the file with the replace method.
-# The second step splits the words using the split method.
+# The second step splits by the words by spaces using the split method.
 # The third step uses a nested for loop to flatten out the lists. They were broken into a list of lists
-# because of the line break and the nested for loop creates one main list of all the words.
+# because of the line breaks and the nested for loop creates one main list of all the words.
 
 line_list = [word.replace("\n", "") for word in raw_list]
 word_list = [word.split() for word in line_list]
@@ -29,7 +29,7 @@ word_count = len(words)
 # adjusted for that in the analysis. Although, knowing how to split them out using regex is helpful.
 # For this first week I have been trying to do everything in vanilla as much as possible without importing things.
 # I made a pseudo regular expression counter by just incrementing the commas and periods. An imperfect method
-# because it ignores ' and other marks. But it gives an approximate number of characters to remove from my character
+# because it ignores other special characters. But it gives an approximate number of characters to remove from my
 # count and the sentences. This method would break if there were periods in titles or suffixes (e.p. Mr., Jr., M.D.).
 
 sentence_count = 0
